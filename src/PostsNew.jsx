@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
+import axios from 'axios'
 
-export function PostsNew() {
-  // const [title, setTitle] = useState('');
-  // const [body, setBody] = useState('');
-  // const [image, setImage] = useState('');
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log('handling submit...')
-    const params = new FormData(event.target)
-    console.log(event)
-    axios.post("http://localhost:3000/posts.json", params).then(response => {
-      console.log(response.data)
-    })
-}
+  export function postsNew(props) {
+    const handleSubmit = (event) => {
+      event.preventDefault()
+      console.log('handling submit...')
+      const params = new FormData(event.target)
+      axios.post("http://localhost:3000/posts.json", params).then(response => {
+        console.log(response.data)      
+      })
+      window.location.href = '/';
+    }
 
 
   return (    
@@ -21,19 +18,28 @@ export function PostsNew() {
       <p id="green-paragraph">this is a special green paragraph</p>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title"></label>
-          Title: <input type="text" name="title" />
+          <label htmlFor="title">Title:</label>
+           <input type="text" name="title" />
         </div>
         <div>
-          Body: <input type="text" name="body"/>
+          Chef: <input type="text" name="chef"/>
         </div>
         <div>
-          image: <input type="text" name="image"/>
+          directions: <input type="text" name="directions"/>
+        </div>
+        <div>
+          prep time: <input type="text" name="prep_time"/>
+        </div>
+        <div>
+          image url: <input type="text" name="image_url"/>
+        </div>
+        <div>
+          ingredients: <input type="text" name="ingredients"/>
         </div>
         <button type="submit">Create post</button>
-      </form>  
+      </form>      
     </div>
-  );
+    
+  )
 }
-
  

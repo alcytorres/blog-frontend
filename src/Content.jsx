@@ -31,20 +31,14 @@ export function Content() {
     console.log(myPost)
     setCurrentPost(myPost)
     console.log('showing post...');
-    // change the value of isRecipesShowVisible    
+    // change the value of isPostsShowVisible    
     setIsPostsShowVisible(true);
   }
   const handleClose = () => {
     console.log('closing the modal...');
     setIsPostsShowVisible(false);
   }
-  const handleCreatePost = (theParams) => {
-    console.log('creating post....')
-    axios.post("http://localhost:3000/recipes.json", theParams).then(response => {
-      console.log(response.data)
-      setPosts([...posts, response.data])
-    })
-  }
+
   const handleUpdatePost = (id, theParams, sucessCallback) => {
     console.log('updating post')
     axios.patch(`http://localhost:3000/posts/${id}.json`, theParams).then(response => {
@@ -70,14 +64,14 @@ export function Content() {
         <Route path="/about" element={<About />}/>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/posts" element={<PostsIndex posts={posts} onShowPost={handleShowPost}/>} />
-        <Route path="/posts/new" element={<PostsNew onCreatePost={handleCreatePost} />} />
+        <Route path="/" element={<PostsIndex posts={posts} onShowPost={handleShowPost}/>} />
+        <Route path="/posts/new" element={<PostsNew  />} />
       </Routes>
 
       <br />
       <br />
       <br />    
-      
+
       <Modal show={isPostsShowVisible} onClose={handleClose}>
         <PostsShow post={currentPost} onUpdatePost={handleUpdatePost} />
       </Modal>
